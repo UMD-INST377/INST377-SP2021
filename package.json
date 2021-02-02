@@ -22,6 +22,7 @@
     "connect-livereload": "^0.6.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "init": "^0.1.2",
     "livereload": "^0.9.1",
     "node-fetch": "^2.6.1",
     "node-sass-chokidar": "^1.5.0",
@@ -31,14 +32,28 @@
     "recursive-readdir": "^2.2.2"
   },
   "devDependencies": {
-    "email-validator": "^2.0.4",
-    "html-validate": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
     "cypress": "^4.12.1",
     "cypress-html-validate": "^1.2.2",
     "cypress-wait-until": "^1.7.1",
-    "eslint": "^7.4.0",
+    "email-validator": "^2.0.4",
+    "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-cypress": "^2.11.1",
-    "eslint-plugin-import": "^2.22.0"
-  }
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-react": "^7.22.0",
+    "html-validate": "^3.0.0"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdwardTatchim/INST377-SP2021.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EdwardTatchim/INST377-SP2021/issues"
+  },
+  "homepage": "https://github.com/EdwardTatchim/INST377-SP2021#readme"
 }
