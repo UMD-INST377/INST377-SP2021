@@ -15,10 +15,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const staticFolder = 'public';
 
-let dataStore = []; // typically we would read into sqlite but yolo
-
 // Add some auto-reloading to our server
-const liveReloadServer = reload.createServer()
+const liveReloadServer = reload.createServer();
 liveReloadServer.watch(path.join(__dirname, staticFolder));
 
 // Configure express
@@ -26,8 +24,6 @@ app.use(connectReload());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(staticFolder));
-
-
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -50,27 +46,15 @@ app.route('/api')
   .post(async (req, res) => {
     console.log('POST request detected');
     console.log('Form data in res.body', req.body);
-
-    const facilities = someAlgo(req.body.zipcode, dataStore);
-    console.log('data from fetch', json);
     res.json({facilities: dataStore});
   });
 
 app.listen(port, async () => {
-  const police = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
-  const hospital = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
-  const fire = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
-
-  const pJson = await police.json();
-  const hJson = await hospital.json();
-  const fJson = await fire.json();
-
-  dataStore = [...pJson, ...hJson, ...fJson];
   console.log(`Example app listening on port ${port}!`);
 });
 
-liveReloadServer.server.once("connection", () => {
+liveReloadServer.server.once('connection', () => {
   setTimeout(() => {
-    liveReloadServer.refresh("/");
+    liveReloadServer.refresh('/');
   }, 100);
 });
