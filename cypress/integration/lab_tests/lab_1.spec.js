@@ -6,7 +6,9 @@ function checkImageSize($img, max) {
 describe('Lab 1', () => {
   it('Successfully loads', () => {
     cy.fixture('test_values').then((json) => {
+
       cy.visit(`${json.test_context || ''}/labs/lab_1/`); // change URL to match your dev URL
+
       cy.htmlvalidate();
     });
   });

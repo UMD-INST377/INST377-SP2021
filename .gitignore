@@ -148,3 +148,4 @@ dist
 
 # TernJS port file
 .tern-port
+cypress/integration/lab_tests/lab_1.spec.js
