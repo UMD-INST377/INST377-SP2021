@@ -52,6 +52,7 @@ p, li {
 }
 
 
+
 /* || header layout */
 
 .header {
@@ -118,8 +119,7 @@ nav a, nav span {
 }
 
 .article, .section {
-  display: flex;
-  flex-flow: row wrap;
+  flex: 4;
 }
 
 .aside {
