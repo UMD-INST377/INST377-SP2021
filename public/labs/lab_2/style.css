@@ -20,7 +20,7 @@ body {
 /* || typography */
 
 h1, h2, h3 {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'Comfortaa', cursive;
   color: #2a2a2a;
 }
 
@@ -64,7 +64,7 @@ body > * {
   padding: 1%;
 }
 
-.main, .header, nav, .article, .aside, .footer, section {
+.main, .header, nav, .article, .aside, .footer, .section {
   background-color: rgba(0,255,0,0.5);
   padding: 1%;
 }
