@@ -1,12 +1,11 @@
-<!-- Write an index.html file -->
-<!-- Include your stylesheet in the head -->
-<!-- Include your script.js right before the </body> tag -->
-<!-- Make a carousel of four mochi images that cycle, based on the readings from javascript.info -->
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv= "X-UA-Compatible"content="IE=edge">
+  <meta name="viewport" content="width=device-width, intial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Document</title>
 </head>
 
 <body>
@@ -15,55 +14,19 @@
     <button class="arrow prev">⇦</button>
     <div class="gallery">
       <ul class="images">
-        <li><img src="https://en.js.cx/carousel/1.png"></li>
-        <li><img src="https://en.js.cx/carousel/2.png"></li>
-        <li><img src="https://en.js.cx/carousel/3.png"></li>
-        <li><img src="https://en.js.cx/carousel/4.png"></li>
-        <li><img src="https://en.js.cx/carousel/5.png"></li>
-        <li><img src="https://en.js.cx/carousel/6.png"></li>
-        <li><img src="https://en.js.cx/carousel/7.png"></li>
-        <li><img src="https://en.js.cx/carousel/8.png"></li>
-        <li><img src="https://en.js.cx/carousel/9.png"></li>
-        <li><img src="https://en.js.cx/carousel/10.png"></li>
+        <li><img src="Images/onigiri_1.png" alt =onigiri1></li>
+        <li><img src="Images/onigiri_2.png"alt =onigiri2 ></li>
+        <li><img src="Images/onigiri_3.png"alt =onigiri3></li>
+        <li><img src="Images/onigiri_4.png"alt =onigiri4></li>
+        <li><img src="Images/roll_1.png"alt =roll></li>
+        <li><img src="Images/roll_2.png"alt =roll2></li>
+        <li><img src="Images/roll_3.png"alt =roll3></li>
+       
       </ul>
     </div>
     <button class="arrow next">⇨</button>
   </div>
 
-  <script>
-    /* label the images, just for convenience, to visually track them */
-    let i = 1;
-    for(let li of carousel.querySelectorAll('li')) {
-      li.style.position = 'relative';
-      li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
-      i++;
-    }
-
-    /* configuration */
-    let width = 130; // image width
-    let count = 3; // visible images count
-
-    let list = carousel.querySelector('ul');
-    let listElems = carousel.querySelectorAll('li');
-
-    let position = 0; // ribbon scroll position
-
-    carousel.querySelector('.prev').onclick = function() {
-      // shift left
-      position += width * count;
-      // can't move to the left too much, end of images
-      position = Math.min(position, 0)
-      list.style.marginLeft = position + 'px';
-    };
-
-    carousel.querySelector('.next').onclick = function() {
-      // shift right
-      position -= width * count;
-      // can only shift the ribbbon for (total ribbon length - visible count) images
-      position = Math.max(position, -width * (listElems.length - count));
-      list.style.marginLeft = position + 'px';
-    };
-  </script>
-
+  <script src = "script.js"></script>
 </body>
 </html>

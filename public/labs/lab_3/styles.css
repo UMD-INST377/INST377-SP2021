@@ -1,6 +1,7 @@
 /* Add some css styles based on the tutorial at javascript.info: introduction to browser events
  https://javascript.info/introduction-browser-events */
  body {
+    background-color: rgb(15,3,124);
     padding: 10px;
   }
   
@@ -10,7 +11,10 @@
     padding: 10px 40px;
     border: 1px solid #CCC;
     border-radius: 15px;
-    background: #eee;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgb(214,110,110)
   }
   
   .carousel img {
@@ -69,4 +73,5 @@
   
   .gallery li {
     display: inline-block;
-  }
+  }/* Add some css styles based on the tutorial at javascript.info: Intoduction to browser events
+  https://javascript.info/introduction-browser-events
