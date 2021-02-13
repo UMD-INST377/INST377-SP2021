@@ -1,11 +1,11 @@
  function array() {
-    const array1 = [];
+    const sushiArray = [];
 
     const listContainer = document.createElement('ul');
     const target = document.querySelector('sushi');
     target.append(listContainer);
 
-    array1.forEach(element => {
+    sushiArray.forEach(element => {
         const listItem.innerText = element;
     })
 
