@@ -1,8 +1,8 @@
-function array() {
+ function array() {
     const array1 = [];
 
     const listContainer = document.createElement('ul');
-    const target = document.querySelector('#box1');
+    const target = document.querySelector('sushi');
     target.append(listContainer);
 
     array1.forEach(element => {
