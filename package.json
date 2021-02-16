@@ -10,7 +10,7 @@
     "start": "nodemon --ignore public server.js"
   },
   "engines": {
-    "node": "13.x"
+    "node": "^14"
   },
   "author": "Alex Leitch",
   "license": "ISC",
@@ -31,7 +31,7 @@
     "recursive-readdir": "^2.2.2"
   },
   "devDependencies": {
-    "cypress": "^4.12.1",
+    "cypress": "^6.4.0",
     "cypress-html-validate": "^1.2.2",
     "cypress-wait-until": "^1.7.1",
     "email-validator": "^2.0.4",
