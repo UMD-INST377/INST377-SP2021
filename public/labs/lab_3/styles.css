@@ -2,8 +2,13 @@
     padding: 10px;
     background-color: aqua;
   }
+  
   .carousel {
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top:-50px;
+    margin-left: -100px;
     width: 398px;
     padding: 10px 40px;
     border: 1px solid #CCC;
@@ -15,6 +20,7 @@
     width: 130px;
     height: 130px;
     display: block;
+
   }
   
   .arrow {
