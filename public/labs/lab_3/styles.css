@@ -2,13 +2,15 @@
     padding: 10px;
     background-color: aqua;
   }
-  
+  h1{
+    text-align: center;
+  }
   .carousel {
     position: fixed;
     top: 50%;
     left: 50%;
     margin-top:-50px;
-    margin-left: -100px;
+    margin-left: -199px;
     width: 398px;
     padding: 10px 40px;
     border: 1px solid #CCC;
