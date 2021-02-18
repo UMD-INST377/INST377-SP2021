@@ -84,4 +84,8 @@ document.addEventListener('DOMContentLoaded' , () => {
     }
 
 
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> 368eb723ea35c9546200abefeba1590059858c13
