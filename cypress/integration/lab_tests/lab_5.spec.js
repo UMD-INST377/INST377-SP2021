@@ -10,7 +10,7 @@ describe('Lab 5', () => {
   context('Initial Lab 4 Success', () => {
     it('Successfully loads with valid HTML', () => {
       cy.fixture('test_values').then((json) => {
-        const labUrl = `${json.test_context || ''}/lab_5/`;
+        const labUrl = `${json.test_context || ''}labs/lab_5/`;
         cy.visit(labUrl); // change URL to match your dev URL
         cy.htmlvalidate();
       });

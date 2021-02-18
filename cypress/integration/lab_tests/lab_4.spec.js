@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-expressions */
 describe('Lab 4', () => {
   it('Successfully loads with valid HTML', () => {
     cy.fixture('test_values').then((json) => {
-      const labUrl = `${json.test_context || ''}/lab_4/`;
+      const labUrl = `${json.test_context || ''}labs/lab_4/`;
       cy.visit(labUrl); // change URL to match your dev URL
       cy.htmlvalidate();
     });
   });
 
-  it('should contain your name and lab number within the page title', () => {
+  it('Should contain your name and lab number within the page title', () => {
     cy.fixture('test_values').then((json) => {
       cy.title().then(($title) => {
         const [name, lab, title] = [json.name, 'lab 4', $title].map((m) => m.toUpperCase());
@@ -17,7 +18,7 @@ describe('Lab 4', () => {
     });
   });
 
-  it('should correctly link to supplied lab styles.css', () => {
+  it('should correctly link to a styles.css file', () => {
     cy.get('head link[href="styles.css"]');
   });
 
@@ -120,69 +121,6 @@ describe('Lab 4', () => {
   });
 
   // CSS TESTS START HERE
-
-  it('Your ul CSS - both .flex-outer and .flex-inner - should be set to flexbox display values', () => {
-    cy.get('.flex-outer li').should('have.css', 'display', 'flex');
-    cy.get('.flex-outer li').should('have.css', 'flex-wrap', 'wrap');
-    cy.get('.flex-outer li').should('have.css', 'align-items', 'center');
-
-    cy.get('.flex-inner').should('have.css', 'display', 'flex');
-    cy.get('.flex-inner').should('have.css', 'flex-wrap', 'wrap');
-    cy.get('.flex-inner').should('have.css', 'align-items', 'center');
-  });
-
-  it('Your .flex-outer element should have a constrained width and reset padding to fit nicely on a screen', () => {
-    cy.get('.flex-outer').should(($ul) => {
-      const style = window.getComputedStyle($ul[0]);
-      expect(style.marginLeft).to.equal('0px');
-      expect(style.marginLeft).to.equal(style.marginRight);
-      expect(style.marginTop).to.equal(style.marginBottom);
-    });
-    cy.get('.flex-outer').should('have.css', 'max-width', '800px');
-    cy.get('.flex-outer').should('have.css', 'padding', '0px 16px');
-  });
-
-  it('Your label CSS - p and label both - should be set to flex up to 130px, with a max width of 225px', () => {
-    cy.get('.flex-outer > li > label').should('have.css', 'flex', '1 0 125px');
-    cy.get('.flex-outer > li > label').should('have.css', 'max-width', '225px');
-
-    cy.get('.flex-outer li p').should('have.css', 'flex', '1 0 125px');
-    cy.get('.flex-outer li p').should('have.css', 'max-width', '225px');
-  });
-
-  it('Your CSS should let your form elements should stack vertically in a nice way', () => {
-    cy.get('.flex-outer > li > label + *').should('have.css', 'flex', '1 0 225px');
-    cy.get('.flex-inner').should('have.css', 'flex', '1 0 225px');
-  });
-
-  it('Your form button should be carefully styled to match these rules', () => {
-    cy.get('.flex-outer > li > button').should('have.css', 'margin-left', '0px');
-    cy.get('.flex-outer > li > button').should('have.css', 'padding', '6px 12px');
-    cy.get('.flex-outer button').should('have.css', 'text-transform', 'uppercase');
-    cy.get('.flex-outer button').should('have.css', 'letter-spacing', '1.2px');
-    cy.get('.flex-outer button').should('have.css', 'border-radius', '3px');
-  });
-
-  it('Each checkbox should only take up 80px of width', () => {
-    cy.get('.flex-inner li').should('have.css', 'width', '80px');
-  });
-
-  it('Your checkboxes should have space between them', () => {
-    cy.get('.flex-inner').should('have.css', 'justify-content', 'space-between');
-  });
-
-  it('Your label elements should have enough padding to space out your form elements', () => {
-    cy.get('.flex-outer > li > label').should('have.css', 'padding', '8px');
-    cy.get('.flex-outer li p').should('have.css', 'padding', '8px');
-  });
-
-  it('Pick a nice color for your page background', () => {
-    cy.get('body').then(($bdy) => {
-      console.log($bdy);
-      console.log($bdy.css('background-color'));
-      expect($bdy.css('background-color')).to.not.equal('rgba(0, 0, 0, 0)');
-    });
-  });
 
   it('Should use the submit button to POST material to the /api endpoint', () => {
     cy.get('form').should('have.attr', 'method', 'post');

@@ -14,7 +14,7 @@ describe('Lab 7', () => {
       });
     });
     cy.fixture('test_values').then((json) => {
-      const labUrl = `${json.test_context || ''}/lab_7/`;
+      const labUrl = `${json.test_context || ''}labs/lab_7/`;
       cy.visit(labUrl); // change URL to match your dev URL
     });
   });
