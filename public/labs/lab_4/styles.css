@@ -9,6 +9,7 @@ body {
     width: 80%;
     max-width: 1200px;
     margin: 0 auto;
+    text-align: center;
   }
   
   .container * {
@@ -72,7 +73,7 @@ body {
   }
   
   .flex-outer li button {
-    margin-left: auto;
+    margin-left: left;
     padding: 8px 16px;
     border: none;
     background: #333;
