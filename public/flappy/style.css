@@ -1,0 +1,32 @@
+.game-container {
+    width: 500px;
+    height: 700px;
+    Position: absolute;
+}
+
+.sky{
+    background-color: aqua;
+    width: 500px;
+    height: 580px;
+    Position: absolute;
+}
+.ground{
+    background-color: burlywood;
+    width: 500px;
+    height: 150px;
+    Position: absolute;
+    top:auto;
+}
+
+.bird{
+    background-color: rgb(230, 13, 13);
+    width: 50px;
+    height: 50px;
+    Position: absolute;
+}
+.obstacle{
+    background-color: rgb(23, 109, 11);
+    width: 50px;
+    height: 250px;
+    Position: absolute;
+}

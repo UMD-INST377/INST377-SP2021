@@ -1,11 +1,10 @@
- .arrow {
+.arrow {
     padding: 0;
-    background: #ddd;
+    background: rgb(12, 192, 123);
     border-radius: 15px;
-    border: 1px solid gray;
-    font-size: 24px;
-    line-height: 24px;
-    color: #444;
+    font-size: 20px;
+    line-height: 25px;
+    color: rgb(247, 9, 9);
     display: block;
   }
   
@@ -14,21 +13,26 @@
   }
   
   .arrow:hover {
-    background: #ccc;
+    background: rgb(17, 2, 2);
     cursor: pointer;
   }
   
   ul {
-    height: 130px;
+    height: 200px;
     width: 9999px;
-    margin: 0;
-    padding: 0;
+    margin: 10;
+    padding: 10;
     list-style: none;
-    font-size: 0;
+    font-size: 10;
+  }
+
+  ul li {
+    display: inline-block; 
   }
   
   ul img {
     width: 130px;
-    height: 130px;
-    display: block; /* removes extra space near images */
+    height: 100px;
+    display: block;
   }
+  
