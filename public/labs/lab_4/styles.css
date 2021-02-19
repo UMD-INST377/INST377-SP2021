@@ -1,6 +1,6 @@
 body {
   font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
-  background: #3AAFAB;
+  background: #ff0000;
   color: #fff;
   padding: 50px 0;
 }
@@ -75,7 +75,7 @@ body {
   margin-left: auto;
   padding: 8px 16px;
   border: none;
-  background: #333;
+  background: rgb(0, 0, 0);
   color: #f2f2f2;
   text-transform: uppercase;
   letter-spacing: .09em;
