@@ -21,7 +21,7 @@ body {
     width: 80px;
     height: 790px;
     position: absolute;
-    background-color: white;
+    background-color: white; 
     z-index: +2;
     left: 580px;
 }
@@ -75,30 +75,13 @@ body {
     position: absolute;
 }
 
-@keyframes slideright {
-    from {
-        background-position: 10000%;
-    }
-    to {
-        background-position: 0%;
-    }
-  }
-  
-  @-webkit-keyframes slideright {
-    from {
-        background-position: 10000%;
-    }
-    to {
-        background-position: 0%;
-    }
-  }
 
   .ground-container {
       height: 150px;
       width: 580px;
       left: 80px;
       position:  absolute;
-  }
+}
   
   .ground-moving {
     position: absolute;
@@ -110,4 +93,4 @@ body {
     -webkit-animation: slideright 100s infinite linear;
     width: 100%;
     z-index: +1;
-  }
+}
