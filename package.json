@@ -31,11 +31,7 @@
     "recursive-readdir": "^2.2.2"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "cypress": "^6.3.0",
-=======
     "cypress": "^6.4.0",
->>>>>>> c6ed62af28b5225af9177fa64eac80ecf29af942
     "cypress-html-validate": "^1.2.2",
     "cypress-wait-until": "^1.7.1",
     "email-validator": "^2.0.4",
