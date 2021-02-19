@@ -1,0 +1,20 @@
+.game-container {
+    width: 500px;
+    height: 730px;
+    position: absolute;
+}
+
+.sky {
+    background-color: light-blue;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+}
+
+.ground {
+    background-color: brown;
+    width: 500px;
+    height: 150px;
+    position: absolute;
+}
+
