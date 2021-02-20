@@ -1,7 +1,6 @@
 const { on } = require('nodemon');
 
 function onLoad() {
-  console.log('script loadd');
+  res.json('hello world')
 }
-
-window.onload = onload;
+window.onLoad = onLoad;
