@@ -1,62 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css"/>
-  <title>Hamid Dawodu's Lab 4</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"/>
+    <title>Hamid Dawodu's Lab 4</title>
 </head>
-
 <body>
-  <header class='Hamid Dawodu  Lab 4'>
-    <h1>Hamid Dawodu's lab 4 </h1>
-   
-
-
-<form>
-    <ul class="flex-outer">
-      <li>
-        <label for="first-name">First Name</label>
-        <input type="text" id="first-name" placeholder="">
-      </li>
-      <li>
-        <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" placeholder="">
-      </li>
-      <li>
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="">
-      </li>
-      <li>
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" placeholder="">
-      </li>
-      <li>
-        <label for="Text field">Text field</label>
-        <textarea rows="5" cols="33" id="message" placeholder="This is some default text message"></textarea>
-      </li>
-      <li>
-        <p>Age</p>
-        <ul class="flex-inner">
+    <h1> Hamid Dawodu's Lab 4</h1>
+    <div class="container">
+        <form id="Forms" name="Forms" action="/api" method="post"> 
+          <ul class="flex-outer">
             <li>
-                <input type="checkbox" id="twenty-to-twentynine">
-                <label for="eightenn-to-thirthyfive">18-35</label>
-              </li>
-              <li>
-                <input type="checkbox" id="thirty-to-thirtynine">
-                <label for="thirtyfive-to-fifty">35-50</label>
-              </li>
-              <input type="checkbox" id="thirty-to-thirtynine">
-                <label for="fifty-to-sixtyfive">50-65</label>
-              <!-- more list items here -->
-            </ul>
-        </ul>
-      </li>
-      <li>
-        <h2><button type="submit form">SUBMIT FORM </button></h2>
-      </li>
-    </ul>
-  </form>
-  
-   
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" placeholder=""> 
+            </li>
+            <li>
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" placeholder="">
+            </li>
+            <li>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="">
+            </li>
+            <li>
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="">
+            </li>
+            <li>
+              <label for="message">Text field</label>
+              <textarea rows="6" cols="33" id="message" name="message" placeholder="This some default message text"></textarea>
+            </li>
+            <li>
+              <p>Age</p>
+         <ul class="flex-inner">
+             <li>
+              <input type="checkbox" id="eighteen-to-thirtyfive" name="eighteen-to-thirtyfive">
+              <label for="eighteen-to-thirtyfive">18-35</label>
+             </li>  
+             <li> 
+              <input type="checkbox" id="thirtyfive-to-fifty" name="thirtyfive-to-fifty">
+              <label for="thirtyfive-to-fifty">35-50</label>
+             </li>
+             <li>                
+              <input type="checkbox" id="fifty-to-sixtyfive" name="fifty-to-sixtyfive">
+              <label for="fifty-to-sixtyfive">50-65</label>
+                
+                
+          </ul>
+            </li>
+            
+           <li>
+             <button type="submit" id="House" name="House" action="/api" method="post">SUBMIT FORM</button> 
+          </li>
+          </ul>
+        </form>
+      </div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 // These are our required libraries to make the server work.
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-console /
+/ eslint-disable no-unused-vars /
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
