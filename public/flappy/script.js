@@ -78,4 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ground.classList.add('ground');
     ground.classList.remove('ground-moving');
   }
+  if (birdBottom === 0) {
+    gameOver();
+  }
 });
