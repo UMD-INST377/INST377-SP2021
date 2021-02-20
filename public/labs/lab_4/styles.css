@@ -1,8 +1,12 @@
 body {
     font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
-    background: #3AAFAB;
+    background:silver;
     color: #fff;
     padding: 50px 0;
+  }
+
+  h1 {
+    text-align: center;
   }
   
   .container {
@@ -80,6 +84,8 @@ body {
     text-transform: uppercase;
     letter-spacing: .09em;
     border-radius: 2px;
+    position: absolute;
+    align-items: flex-start;
   }
   
   .flex-inner li {
