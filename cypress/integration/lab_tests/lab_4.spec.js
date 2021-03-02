@@ -1,18 +1,16 @@
 describe('Lab 4', () => {
-  it('Successfully loads with valid HTML', () => {
-    cy.fixture('test_values').then((json) => {
-      const labUrl = `${json.test_context || ''}/lab_4/`;
-      cy.visit(labUrl); // change URL to match your dev URL
-      cy.htmlvalidate();
-    });
+  it("All your HTML is valid to W3C standards: check error for details of what's wrong", () => {
+    const labUrl = 'labs/lab_4/';
+    cy.visit(labUrl); // change URL to match your dev URL
+    cy.htmlvalidate();
   });
 
   it('should contain your name and lab number within the page title', () => {
     cy.fixture('test_values').then((json) => {
       cy.title().then(($title) => {
         const [name, lab, title] = [json.name, 'lab 4', $title].map((m) => m.toUpperCase());
-        expect(title.includes(name)).to.be.true;
-        expect(title.includes(lab)).to.be.true;
+        expect(title.includes(name), 'Did you check your test_values file is the same as your ELMS name?').to.be.true;
+        expect(title.includes(lab), 'Tell me what lab this is for').to.be.true;
       });
     });
   });
@@ -26,8 +24,8 @@ describe('Lab 4', () => {
       cy.get('h1')
         .then(($hh1) => {
           const [name, lab, title] = [json.name, 'lab 4', $hh1.text()].map((m) => m.toUpperCase());
-          expect(title.includes(name)).to.be.true;
-          expect(title.includes(lab)).to.be.true;
+          expect(title.includes(name), 'Did you check your test_values file is the same as your ELMS name?').to.be.true;
+          expect(title.includes(lab), 'Tell me what lab this is for').to.be.true;
         });
     });
   });
@@ -44,7 +42,7 @@ describe('Lab 4', () => {
     cy.get('form ul.flex-outer li input[type=text]')
       .then(($ta) => {
         const id = $ta.attr('id');
-        expect(id).to.exist;
+        expect(id, 'All inputs need an id').to.exist;
       });
 
     cy.get('form ul.flex-outer li label[for="fname"]')
@@ -58,13 +56,13 @@ describe('Lab 4', () => {
     cy.get('form ul.flex-outer li input[type=tel]')
       .then(($ta) => {
         const id = $ta.attr('id');
-        expect(id).to.exist;
+        expect(id, 'All inputs need an id').to.exist;
       });
 
     cy.get('form ul.flex-outer li input[type=email]')
       .then(($ta) => {
         const id = $ta.attr('id');
-        expect(id).to.exist;
+        expect(id, 'All inputs need an id').to.exist;
       });
   });
 
@@ -78,8 +76,8 @@ describe('Lab 4', () => {
         const rows = Number($ta.attr('rows'));
         const cols = Number($ta.attr('cols'));
 
-        expect(rows).to.be.greaterThan(4);
-        expect(cols).to.be.greaterThan(32);
+        expect(rows, "You're missing some rows").to.be.greaterThan(4);
+        expect(cols, "You're missing some columns").to.be.greaterThan(32);
       });
   });
 
@@ -87,17 +85,17 @@ describe('Lab 4', () => {
     cy.get('form textarea')
       .then(($txt) => {
         const name = $txt.attr('name');
-        expect(name).to.exist;
+        expect(name, 'Your textarea needs a name').to.exist;
       });
     cy.get('form input')
       .each(($txt) => {
         const name = $txt.attr('name');
-        expect(name).to.exist;
+        expect(name, 'Your inputs need a name').to.exist;
       });
     cy.get('form button')
       .then(($txt) => {
         const name = $txt.attr('name');
-        expect(name).to.exist;
+        expect(name, 'Your button needs a name').to.exist;
       });
   });
 
@@ -115,89 +113,18 @@ describe('Lab 4', () => {
     cy.get('form button')
       .then(($txt) => {
         const id = $txt.attr('id');
-        expect(id).to.exist;
+        expect(id, 'Your submit button needs an ID').to.exist;
       });
   });
 
-  // CSS TESTS START HERE
-
-  it('Your ul CSS - both .flex-outer and .flex-inner - should be set to flexbox display values', () => {
-    cy.get('.flex-outer li').should('have.css', 'display', 'flex');
-    cy.get('.flex-outer li').should('have.css', 'flex-wrap', 'wrap');
-    cy.get('.flex-outer li').should('have.css', 'align-items', 'center');
-
-    cy.get('.flex-inner').should('have.css', 'display', 'flex');
-    cy.get('.flex-inner').should('have.css', 'flex-wrap', 'wrap');
-    cy.get('.flex-inner').should('have.css', 'align-items', 'center');
-  });
-
-  it('Your .flex-outer element should have a constrained width and reset padding to fit nicely on a screen', () => {
-    cy.get('.flex-outer').should(($ul) => {
-      const style = window.getComputedStyle($ul[0]);
-      expect(style.marginLeft).to.equal('0px');
-      expect(style.marginLeft).to.equal(style.marginRight);
-      expect(style.marginTop).to.equal(style.marginBottom);
-    });
-    cy.get('.flex-outer').should('have.css', 'max-width', '800px');
-    cy.get('.flex-outer').should('have.css', 'padding', '0px 16px');
-  });
-
-  it('Your label CSS - p and label both - should be set to flex up to 130px, with a max width of 225px', () => {
-    cy.get('.flex-outer > li > label').should('have.css', 'flex', '1 0 125px');
-    cy.get('.flex-outer > li > label').should('have.css', 'max-width', '225px');
-
-    cy.get('.flex-outer li p').should('have.css', 'flex', '1 0 125px');
-    cy.get('.flex-outer li p').should('have.css', 'max-width', '225px');
-  });
-
-  it('Your CSS should let your form elements should stack vertically in a nice way', () => {
-    cy.get('.flex-outer > li > label + *').should('have.css', 'flex', '1 0 225px');
-    cy.get('.flex-inner').should('have.css', 'flex', '1 0 225px');
-  });
-
-  it('Your form button should be carefully styled to match these rules', () => {
-    cy.get('.flex-outer > li > button').should('have.css', 'margin-left', '0px');
-    cy.get('.flex-outer > li > button').should('have.css', 'padding', '6px 12px');
-    cy.get('.flex-outer button').should('have.css', 'text-transform', 'uppercase');
-    cy.get('.flex-outer button').should('have.css', 'letter-spacing', '1.2px');
-    cy.get('.flex-outer button').should('have.css', 'border-radius', '3px');
-  });
-
-  it('Each checkbox should only take up 80px of width', () => {
-    cy.get('.flex-inner li').should('have.css', 'width', '80px');
-  });
-
-  it('Your checkboxes should have space between them', () => {
-    cy.get('.flex-inner').should('have.css', 'justify-content', 'space-between');
-  });
-
-  it('Your label elements should have enough padding to space out your form elements', () => {
-    cy.get('.flex-outer > li > label').should('have.css', 'padding', '8px');
-    cy.get('.flex-outer li p').should('have.css', 'padding', '8px');
-  });
-
-  it('Pick a nice color for your page background', () => {
-    cy.get('body').then(($bdy) => {
-      console.log($bdy);
-      console.log($bdy.css('background-color'));
-      expect($bdy.css('background-color')).to.not.equal('rgba(0, 0, 0, 0)');
-    });
-  });
-
-  it('Should use the submit button to POST material to the /api endpoint', () => {
+  // Promisified submit checker should help with race conditions
+  it('Should use the submit button to POST material to the /api endpoint and receive hello world back', () => {
     cy.get('form').should('have.attr', 'method', 'post');
+    cy.get('form').should('have.attr', 'action', '/api');
     cy.get('button[type=submit]')
-      .click();
-    cy.contains('hello world', { matchCase: false });
-  });
-
-  it('Should receive a string containing "Hello World" from the server - use res.send from Express docs for this', () => {
-    cy.fixture('test_values').then((json) => {
-      const labUrl = `${json.test_context || ''}/lab_4/`;
-      cy.visit(labUrl);
-      cy.get('button[type=submit]')
-        .click();
-      cy.contains('hello world', { matchCase: false });
-    });
+      .click()
+      .then(() => {
+        cy.contains('hello world', { matchCase: false });
+      });
   });
 });

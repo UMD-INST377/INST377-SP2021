@@ -7,7 +7,7 @@ function isDescending(a) {
 describe('Lab 6', () => {
   before(() => {
     cy.fixture('test_values').then((json) => {
-      const labUrl = `${json.test_context || ''}lab_6/`;
+      const labUrl = `${json.test_context || ''}labs/lab_6/`;
       cy.visit(labUrl); // change URL to match your dev URL
     });
   });
