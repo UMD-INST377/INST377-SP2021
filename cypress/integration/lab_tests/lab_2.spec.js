@@ -1,142 +1,107 @@
 describe('Lab 2', () => {
-  let labUrl;
-  // TODO: WRITE OUT VALIDATION ERRORS IN A LEGIBLE FORMAT
-  // Guidelines: https://docs.cypress.io/api/cypress-api/cypress-log.html#Examples\
-
   it('Successfully loads with valid HTML', () => {
     cy.fixture('test_values').then((json) => {
-      labUrl = `${json.test_context || ''}labs/lab_2/`;
+      const labUrl = `${json.test_context || ''}labs/lab_2/`;
       cy.visit(labUrl); // change URL to match your dev URL
       cy.htmlvalidate();
     });
   });
 
-  it('Has meta content to reflect the page author', () => {
+  it('Should have a header block', () => {
+    cy.get('div.header');
+  });
+
+  it('Should have a main block', () => {
+    cy.get('div.main');
+  });
+
+  it('Should have an article block', () => {
+    cy.get('div.article');
+  });
+
+  it('Should have an aside block', () => {
+    cy.get('.aside');
+  });
+
+  it('Should have a nav element with a list of places to go', () => {
+    cy.get('nav');
+    cy.get('nav ul');
+    cy.get('nav ul li').should('have.length', 5);
+  });
+
+  it('The aside block should be correctly structured with four images and their links', () => {
+    cy.get('.aside a')
+      .should('have.length', 4);
+
+    cy.get('.aside a img')
+      .should('have.length', 4);
+
+    cy.get('.aside h2')
+      .should('have.length', 1)
+      .contains('Favourite photos');
+  });
+
+  it('All images should have descriptive alt text', () => {
+    cy.get('img')
+      .should('have.length', 5)
+      .each(($i) => {
+        cy.log($i);
+        expect($i).to.have.attr('alt');
+        const alt = Cypress.$($i).attr('alt');
+        expect(alt.length).to.be.greaterThan(0);
+        expect(alt.length).to.be.lessThan(140);
+      });
+  });
+
+  it('Should display valid images', () => {
+    cy.get('img')
+      .should('have.length', 5)
+      .should('be.visible')
+      .each(($i) => {
+        expect($i[0].naturalWidth, 'Your image link is broken! Try fixing your <img> src').to.be.greaterThan(0);
+      });
+  });
+
+  it('Images in aside should be perfectly square', () => {
+    cy.get('.aside a img')
+      .should('have.length', 4)
+      .should('be.visible')
+      .each(($i) => {
+        expect($i[0].naturalWidth, 'Your image link is broken! Try fixing your <img> src').to.be.greaterThan(0);
+        expect($i[0].naturalWidth, 'Your images should be square').to.equal($i[0].naturalHeight);
+      });
+  });
+
+
+  it('Should have a reasonably sized header image', () => {
+    cy.get('.header img')
+      .each(($i) => {
+        const img = $i.css('height');
+        const img2Number = Number(img.substring(0, img.indexOf('px')));
+        expect(img2Number).to.be.lessThan(100);
+      });
+  });
+
+  it('Main block should contain some lipsum', () => {
+    cy.get('.main p')
+      .contains('Lorem ipsum dolor sit amet');
+  });
+
+  it('Main page should contain a top-level header tag with your name', () => {
     cy.fixture('test_values').then((json) => {
-      cy.get('meta[name="author"]')
-        .should(
-          'have.attr',
-          'name',
-          'author'
-        )
-        .should(
-          'have.attr',
-          'content',
-          json.name
-        );
+      cy.get('.header h1')
+        .contains(json.name);
     });
   });
 
-  it('Contains the correct number of address blocks', () => {
-    cy.get('address')
-      .should('have.length', 2);
-  });
-
-  it('First address block contains links for phone and e-mail information', () => {
-    const addressCheck = cy.get('address a');
-    addressCheck.should('have.length', 2);
-    addressCheck.each(($el, i) => {
-      expect($el).to.have.attr('href');
-      if (i === 0) {
-        expect($el).to.have.attr('href').match(/tel:/g);
-      } else {
-        expect($el).to.have.attr('href').match(/mailto:/g);
-      }
+  it('Should have an updated footer with your name', () => {
+    cy.fixture('test_values').then((json) => {
+      cy.get('.footer').contains(json.name);
     });
-  });
 
-  it('Contains appropriate use of strong tags in address block', () => {
-    cy.get('address strong')
-      .should('exist');
-  });
-
-  it('Contains a datetime stamp within a paragraph', () => {
-    cy.get('address p time')
-      .should('exist')
-      .should('have.attr', 'datetime');
-  });
-
-  it('Contains a top-level page header', () => {
-    cy.get('h1').contains('Re:');
-    cy.get('h1').contains('university application');
-  });
-
-  it('Contains at least two secondary page headers', () => {
-    cy.get('h2').should('have.length.greaterThan', 2);
-    cy.get('h2').first().contains('dates');
-    cy.get('h2').last().contains('Animals');
-  });
-
-  it('Contains an unordered list with three dateTimes', () => {
-    cy.get('ul').children().should('have.length', 3);
-  });
-
-  it('Contains an ordered list with three sub-entries', () => {
-    cy.get('ol').children().should('have.length', 3);
-  });
-
-  it('Uses subtext tags appropriately', () => {
-    cy.get('ol li').first()
-      .contains('Turning H2O into wine, and the health benefits of Resveratrol (C14H12O3.)');
-
-    cy.get('ol li').first()
-      .children('sub').should('have.length', 4);
-  });
-
-  it('Uses supertext tags appropriately', () => {
-    cy.get('ol li')
-      .contains('at temperatures exceeding 33°C (91.4°F)')
-      .children('sup').should('have.length', 2);
-  });
-
-  it('Uses abbreviation tags appropriately', () => {
-    cy.get('ol li')
-      .contains('HTML and CSS');
-
-    cy.get('ol li').children('abbr').should('have.length', 2);
-    cy.get('ol li abbr').first().should(($abbr) => {
-      const test = 'Hypertext Markup Language';
-      expect($abbr.attr('title').toUpperCase()).to.equal(test.toUpperCase());
-    });
-    cy.get('ol li abbr').last().should(($abbr) => {
-      const test = 'Cascading Style Sheets';
-      expect($abbr.attr('title').toUpperCase()).to.equal(test.toUpperCase());
-    });
-  });
-
-  it('Uses an emphasis tag appropriately', () => {
-    cy.get('em').should('have.length', 2);
-  });
-
-  it('Does not use old-format emphasis tags', () => {
-    cy.get('i').should('have.length', 0);
-    cy.get('b').should('have.length', 0);
-  });
-
-  it('Contains a blockquote footer', () => {
-    cy.get('blockquote').should(($bq) => {
-      const text = 'fear the turtle';
-      expect($bq.text().replace(/"/g, '').toUpperCase()).to.equal(text.toUpperCase());
-    });
-  });
-
-  it('Has a correctly-formatted link to a research page', () => {
-    cy.get('a').last().should('have.attr', 'href', 'http://umd.edu');
-  });
-
-  it('Contains a definition list with three entries', () => {
-    cy.get('dl')
-      .children()
-      .should('have.length', 6)
-      .get('dl dt')
-      .should('have.length', 3)
-      .get('dl dd:nth-of-type(3)')
-      .contains('the screaming noise')
-      .get('dl dt:nth-of-type(1)')
-      .contains('Polar');
-  });
-
-  it('Uses paragraph tags to structure all loose page text', () => {
-    cy.get('p').should('have.length', 13);
+    cy.contains('This fake website example is CC0 — any part of this code may be reused in any way you wish. Original example written by Chris Mills, 2016.')
+      .should('not.exist');
+    cy.contains('This website example has been written by Sam Cap, 2020')
+      .should('not.exist');
   });
 });

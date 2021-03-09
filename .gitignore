@@ -2,7 +2,6 @@
 # Course specific
 # -------------------------------------------------
 public/answer_key/private
-.env
 
 # -------------------------------------------------
 # Example specs from Cypress
@@ -115,8 +114,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+# .env
+# .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

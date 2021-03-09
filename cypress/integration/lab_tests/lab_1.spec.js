@@ -16,11 +16,12 @@ describe('Lab 1', () => {
   it('Contains a page title with your name in it', () => {
     cy.get('head title')
       .then(($title) => {
-        expect(Cypress.env('NAME')).to.be.a('string');
-        const nameTests = Cypress.env('NAME').split(' ');
-        const text = $title.text();
-        const testString = nameTests.find((element) => text.includes(element));
-        expect(testString).to.not.be.undefined;
+        cy.fixture('test_values').then((json) => {
+          const nameTests = json.name.split(' ');
+          const text = $title.text();
+          const testString = nameTests.find((element) => text.includes(element));
+          expect(testString, "We can't find your name in the page title").to.not.be.undefined;
+        });
       });
   });
 
@@ -28,33 +29,35 @@ describe('Lab 1', () => {
     cy.get('body h1')
       .should('be.visible')
       .and(($h1) => {
-        expect(Cypress.env('NAME')).to.be.a('string');
-        const nameTests = Cypress.env('NAME').split(' ');
-        const text = $h1.text();
-        const testString = nameTests.find((element) => text.includes(element));
-        expect(testString).to.not.be.undefined;
+        cy.fixture('test_values').then((json) => {
+          const nameTests = json.name.split(' ');
+          const text = $h1.text();
+          const testString = nameTests.find((element) => text.includes(element));
+          expect(testString, "We can't find your name in a header tag").to.not.be.undefined;
+        });
       });
   });
 
   it('Contains an unordered list with three elements', () => {
     cy.get('ul')
       .find('li')
-      .should('have.length', 3);
+      .should('have.lengthOf.at.least', 3);
   });
 
   it('Contains an ordered list with five elements', () => {
     cy.get('ol')
       .find('li')
-      .should('have.length', 5);
+      .should('have.lengthOf.at.least', 5);
   });
 
   it('Contains four adorable pictures', () => {
     cy.get('img')
       .should('be.visible')
-      .should('have.length', 4)
+      .should('have.lengthOf.at.least', 4)
       .and(($img) => {
-        expect($img[0].naturalWidth).to.be.greaterThan(0);
-        expect($img[0].naturalWidth).to.be.lessThan(481);
+        expect($img[0].naturalWidth, 'Your images may not be loading').to.be.greaterThan(0);
+        expect($img[0].naturalWidth, 'Your images are too wide').to.be.lessThan(481);
+        expect($img[0].naturalHeight, 'Your images are too tall').to.be.lessThan(481);
       });
   });
 
@@ -70,8 +73,9 @@ describe('Lab 1', () => {
     cy.get('img')
       .should('be.visible')
       .and(($img) => {
-        expect($img[0].naturalWidth).to.be.greaterThan(0);
-        expect($img[0].naturalWidth).to.be.lessThan(481);
+        expect($img[0].naturalWidth, 'Your images may not be loading').to.be.greaterThan(0);
+        expect($img[0].naturalWidth, 'Your images are too wide').to.be.lessThan(481);
+        expect($img[0].naturalHeight, 'Your images are too tall').to.be.lessThan(481);
       });
   });
 
