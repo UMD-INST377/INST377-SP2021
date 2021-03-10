@@ -1,286 +1,123 @@
-function hasDuplicates(array) {
-  console.log(new Set(array));
-  return (new Set(array)).size !== array.length;
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
 }
 
-describe('Lab 5', () => {
-  let initialBG;
-  const initialCheckboxVals = [];
+describe('Lab 5 - Maps Of Food Places', () => {
+  before(() => {
+    const ga = cy.stub().as('ga');
 
-  context('Initial Lab 4 Success', () => {
+    // prevent google analytics from loading
+    // and replace it with a stub before every
+    // single page load including all new page
+    // navigations
+    cy.on('window:before:load', (win) => {
+      Object.defineProperty(win, 'ga', {
+        configurable: false,
+        get: () => ga, // always return the stub
+        set: () => {} // don't allow actual google analytics to overwrite this property
+      });
+    });
+    cy.fixture('test_values').then((json) => {
+      const labUrl = `${json.test_context || ''}labs/lab_5`;
+      cy.visit(labUrl); // change URL to match your dev URL
+    });
+  });
+
+  context('HTML Layout', () => {
+    // Standard tests
     it('Successfully loads with valid HTML', () => {
+      cy.htmlvalidate();
+    });
+
+    it('Contains a page title with your name in it', () => {
       cy.fixture('test_values').then((json) => {
-        const labUrl = `${json.test_context || ''}labs/lab_5/`;
-        cy.visit(labUrl); // change URL to match your dev URL
-        cy.htmlvalidate();
+        cy.get('head title')
+          .contains(json.name);
       });
     });
 
-    it('should contain your name and lab number within the page title', () => {
-      cy.fixture('test_values').then((json) => {
-        cy.title().then(($title) => {
-          const [name, lab, title] = [json.name, 'lab 4', $title].map((m) => m.toUpperCase());
-          expect(title.includes(name)).to.be.true;
-          expect(title.includes(lab)).to.be.true;
-        });
-      });
-    });
-
-    it('should correctly link to supplied lab styles.css', () => {
-      cy.get('head link[href="styles.css"]');
-    });
-
-    it('Your lab should have a headline with your name and the lab number in it', () => {
+    it('Contains a header element with your name in it', () => {
       cy.fixture('test_values').then((json) => {
         cy.get('h1')
-          .then(($hh1) => {
-            const [name, lab, title] = [json.name, 'lab 4', $hh1.text()].map((m) => m.toUpperCase());
-            expect(title.includes(name)).to.be.true;
-            expect(title.includes(lab)).to.be.true;
-          });
+          .contains(json.name);
       });
     });
+    // New tests
 
-    it('Should include an HTML form', () => {
-      cy.get('form');
+    it('Page links to Bulma.io', () => {
+      cy.get('head link[href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"]');
     });
 
-    it('Should wrap form elements in an unordered list with a flex-outer class, for styling', () => {
-      cy.get('form ul.flex-outer');
+    it('Page is structured correctly in Bulma with two columns', () => {
+      cy.get('.columns .column+.column');
     });
 
-    it('Should have inputs for first and last name, with id of fname and lname', () => {
-      cy.get('form ul.flex-outer li input[type=text]')
-        .then(($ta) => {
-          const id = $ta.attr('id');
-          expect(id).to.exist;
-        });
-
-      cy.get('form ul.flex-outer li label[for="fname"]')
-        .contains('First Name');
-
-      cy.get('form ul.flex-outer li label[for="lname"]')
-        .contains('Last Name');
-    });
-
-    it('Should have inputs for email and phone', () => {
-      cy.get('form ul.flex-outer li input[type=tel]')
-        .then(($ta) => {
-          const id = $ta.attr('id');
-          expect(id).to.exist;
-        });
-
-      cy.get('form ul.flex-outer li input[type=email]')
-        .then(($ta) => {
-          const id = $ta.attr('id');
-          expect(id).to.exist;
-        });
-    });
-
-    it('Should wrap checkbox elements in a separate list for styling', () => {
-      cy.get('form ul.flex-outer li ul.flex-inner li input[type="checkbox"]');
-    });
-
-    it('Should include a Textarea field that has 5 rows and 33 columns, labelled for messages', () => {
-      cy.get('form textarea[name="message"]')
-        .then(($ta) => {
-          const rows = Number($ta.attr('rows'));
-          const cols = Number($ta.attr('cols'));
-
-          expect(rows).to.be.greaterThan(4);
-          expect(cols).to.be.greaterThan(32);
-        });
-    });
-
-    it('All form controls should have a name attribute, for identification of data on server', () => {
-      cy.get('form textarea')
-        .then(($txt) => {
-          const name = $txt.attr('name');
-          expect(name).to.exist;
-        });
-      cy.get('form input')
+    it('Contains a form element with a single input', () => {
+      cy.get('.columns .column:first-of-type form input[type="text"]')
         .each(($txt) => {
           const name = $txt.attr('name');
-          expect(name).to.exist;
-        });
-      cy.get('form button')
-        .then(($txt) => {
-          const name = $txt.attr('name');
-          expect(name).to.exist;
+          const id = $txt.attr('id');
+          const placeholder = $txt.attr('placeholder');
+          expect(name, 'Your inputs need a name').to.exist;
+          expect(id, 'Your inputs need an id').to.exist;
+          expect(placeholder, 'Your inputs need placeholder text').to.exist;
         });
     });
 
-    it('All form controls should have appropriate labels and ID tags, for identification on the client', () => {
-      cy.get('form textarea')
-        .then(($txt) => {
-          const id = $txt.attr('id');
-          cy.get(`form label[for=${id}]`);
-        });
-      cy.get('form input')
+    it('Contains a list element for results', () => {
+      cy.get('.columns .column:first-of-type ul')
         .each(($txt) => {
-          const id = $txt.attr('id');
-          cy.get(`form label[for=${id}]`);
-        });
-      cy.get('form button')
-        .then(($txt) => {
-          const id = $txt.attr('id');
-          expect(id).to.exist;
+          const className = $txt.attr('class');
+          expect(className, 'You need a selector for this list').to.exist;
         });
     });
 
-    // CSS TESTS START HERE
+    // Leaflet tests
 
-    it('Your ul CSS - both .flex-outer and .flex-inner - should be set to flexbox display values', () => {
-      cy.get('.flex-outer li').should('have.css', 'display', 'flex');
-      cy.get('.flex-outer li').should('have.css', 'flex-wrap', 'wrap');
-      cy.get('.flex-outer li').should('have.css', 'align-items', 'center');
-
-      cy.get('.flex-inner').should('have.css', 'display', 'flex');
-      cy.get('.flex-inner').should('have.css', 'flex-wrap', 'wrap');
-      cy.get('.flex-inner').should('have.css', 'align-items', 'center');
-    });
-
-    it('Your .flex-outer element should have a constrained width and reset padding to fit nicely on a screen', () => {
-      cy.get('.flex-outer').should(($ul) => {
-        const style = window.getComputedStyle($ul[0]);
-        expect(style.marginLeft).to.equal('0px');
-        expect(style.marginLeft).to.equal(style.marginRight);
-        expect(style.marginTop).to.equal(style.marginBottom);
-      });
-      cy.get('.flex-outer').should('have.css', 'max-width', '800px');
-      cy.get('.flex-outer').should('have.css', 'padding', '0px 16px');
-    });
-
-    it('Your label CSS - p and label both - should be set to flex up to 130px, with a max width of 225px', () => {
-      cy.get('.flex-outer > li > label').should('have.css', 'flex', '1 0 125px');
-      cy.get('.flex-outer > li > label').should('have.css', 'max-width', '225px');
-
-      cy.get('.flex-outer li p').should('have.css', 'flex', '1 0 125px');
-      cy.get('.flex-outer li p').should('have.css', 'max-width', '225px');
-    });
-
-    it('Your CSS should let your form elements should stack vertically in a nice way', () => {
-      cy.get('.flex-outer > li > label + *').should('have.css', 'flex', '1 0 225px');
-      cy.get('.flex-inner').should('have.css', 'flex', '1 0 225px');
-    });
-
-    it('Your form button should be carefully styled to match these rules', () => {
-      cy.get('.flex-outer > li > button').should('have.css', 'margin-left', '0px');
-      cy.get('.flex-outer > li > button').should('have.css', 'padding', '6px 12px');
-      cy.get('.flex-outer button').should('have.css', 'text-transform', 'uppercase');
-      cy.get('.flex-outer button').should('have.css', 'letter-spacing', '1.2px');
-      cy.get('.flex-outer button').should('have.css', 'border-radius', '3px');
-    });
-
-    it('Your checkboxes should have space between them', () => {
-      cy.get('.flex-inner').should('have.css', 'justify-content', 'space-between');
-      cy.get('.flex-inner label')
-        .each(($el) => {
-          initialCheckboxVals.push($el.text());
+    it('Includes Leaflet correctly in the global namespace', () => {
+      cy.window()
+        .then((win) => {
+          expect(win.L).to.not.be.undefined;
         });
     });
 
-    it('Your label elements should have enough padding to space out your form elements', () => {
-      cy.get('.flex-outer > li > label').should('have.css', 'padding', '8px');
-      cy.get('.flex-outer li p').should('have.css', 'padding', '8px');
+    it('Contains target for leaflet in div id `mapid`', () => {
+      cy.get('.columns .column:nth-of-type(2) #mapid');
     });
 
-    it('Pick a nice color for your page background', () => {
-      cy.get('body').then(($bdy) => {
-        expect($bdy.css('background-color')).to.not.equal('rgba(0, 0, 0, 0)');
-        initialBG = $bdy.css('background-color');
-      });
-    });
-  });
-  context('Lab 5 Goals 1', () => {
-    it('Add some margins to the right side of your buttons', () => {
-      cy.get('button')
-        .should('have.css', 'margin-right', '10px');
+    it('Leaflet is correctly initialized into #mapid', () => {
+      cy.get('.columns .column:nth-of-type(2) #mapid')
+        .should('have.class', 'leaflet-container');
     });
 
-    it('Set a fresh width on your checkbox list items', () => {
-      cy.get('.flex-inner li')
-        .then(($li) => {
-          expect($li.width()).to.be.greaterThan(80);
-        });
-    });
+    it('Lists 5 restaurants by zip code', () => {
+      const array = [20740, 20737, 20742];
+      const select = getRandomIntInclusive(0, 2);
+      cy.get('.columns .column form input[type="text"]')
+        .type(array[select]);
 
-    it('Add a new button for activation', () => {
-      cy.get('button')
-        .should('have.length', 2);
-
-      cy.get('button')
-        .contains('Activate');
-    });
-  });
-  context('Lab 5 Goals 2', () => {
-    it('Has a script tag', () => {
-      cy.get('script')
-        .should('have.length.greaterThan', 0);
-    });
-
-    it('Clicking the Activate button changes the background color', () => {
-      cy.get('button')
-        .contains('Activate')
+      cy.get('button[type="submit"]')
         .click()
         .then(() => {
-          cy.get('body').then(($bdy) => {
-            expect($bdy.css('background-color')).to.not.equal(initialBG);
-          });
+          cy.get('ul li')
+            .should('have.length.at.least', 5);
         });
     });
 
-    it('And your page title', () => {
-      cy.fixture('test_values').then((json) => {
-        cy.get('title')
-          .contains(json.name);
-      });
-    });
+    it('Puts 5 markers on the map for the zip code', () => {
+      const array = [20740, 20737, 20742];
+      const select = getRandomIntInclusive(0, 2);
+      cy.get('form input[type="text"]')
+        .clear()
+        .type(array[select]);
 
-    it('Your page header now contains your name', () => {
-      cy.fixture('test_values').then((json) => {
-        cy.get('h1')
-          .contains(json.name);
-        cy.get('h1')
-          .contains('Lab 5 for');
-      });
-    });
-
-    it('And your checkbox list label is now "Fruits"', () => {
-      cy.get('.checkbox-list-label')
-        .then(($el) => {
-          const test = 'fruits'.toUpperCase();
-          const elText = $el.text().toUpperCase();
-          expect(test).to.equal(elText);
-        });
-    });
-
-    it('And all your checkbox labels are fruits', () => {
-      cy.get('.flex-inner label')
-        .each(($el) => {
-          expect(initialCheckboxVals.includes($el.text())).to.be.false;
-        });
-
-      // each label is different than the other
-      cy.get('.flex-inner label')
-        .then(($el) => {
-          const arr = Array.from($el);
-          const test = arr.map((m) => m.innerText);
-          const testDupes = hasDuplicates(test);
-          expect(hasDuplicates(test)).to.be.false;
-        });
-    });
-
-    it('And your form is now centered', () => {
-      cy.get('.flex-outer')
-        .then(($el) => {
-          const marginT = parseFloat($el.css('marginTop'));
-          const marginR = parseFloat($el.css('marginRight'));
-          const marginB = parseFloat($el.css('marginBottom'));
-          const marginL = parseFloat($el.css('marginLeft'));
-          expect(marginR).to.equal(marginL);
-          expect(marginT).to.equal(marginB);
-          expect(marginR).to.be.greaterThan(0);
+      cy.get('button[type="submit"]')
+        .click()
+        .then(() => {
+          cy.get('.leaflet-marker-icon')
+            .should('have.length.at.least', 5);
         });
     });
   });
