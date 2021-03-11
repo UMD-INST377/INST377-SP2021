@@ -72,6 +72,7 @@ async function dataHandler(mapObjectFromFunction) {
           </li>
       `)
       .join('');
+    // eslint-disable-next-line no-use-before-define
     suggestions.innerHTML = html;
   }
   const searchInput = document.querySelector('.search');
@@ -79,6 +80,7 @@ async function dataHandler(mapObjectFromFunction) {
 
   searchInput.addEventListener('keyup', (evt) => {
     displayMatches(evt);
+    
   });
 }
 
