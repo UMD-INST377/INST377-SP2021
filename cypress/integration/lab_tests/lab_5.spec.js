@@ -20,7 +20,7 @@ describe('Lab 5 - Maps Of Food Places', () => {
       });
     });
     cy.fixture('test_values').then((json) => {
-      const labUrl = `${json.test_context || ''}demos/`;
+      const labUrl = `${json.test_context || ''}labs/lab_5`;
       cy.visit(labUrl); // change URL to match your dev URL
     });
   });
