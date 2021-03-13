@@ -12,7 +12,7 @@ function mapInit() {
 
   const marker = L.marker([51.5, -0.09]).addTo(mymap);
 
-  const circle = L.circle([51.508, -0.11], {
+  const circle = L.circle([51.508, -0.11], { 
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
@@ -92,3 +92,4 @@ async function windowActions() {
   await dataHandler(map);
 }
 window.onload = windowActions;
+
