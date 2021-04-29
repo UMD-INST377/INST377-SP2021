@@ -1,12 +1,10 @@
-let Sushi = ['onigiri', 'roll']
-console.log(Sushi.length)
+var images =new Array();
 
-let first = Sushi[0]
-// onigiri
+images[1] = 'images/onigiri_1.png' 
+images[2] = 'images/onigiri_2.png'
+images[3] = 'images/onigiri_4.png'
+images[4] = 'images/roll_1.png'
+images[5] = 'images/roll_2.png'
+images[6] = 'images/roll_3.png'
 
-let last = Sushi[Sushi.length - 1]
-// roll
-
-    Sushi.forEach(function (item, index) {
-        console.log(item, index)
-    })
+document.write(images);
